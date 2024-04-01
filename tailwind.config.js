@@ -4,10 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        "dreamy-white": "#EFF4F8",
-        "dreamy-blue": "#COD3E4",
-        "dreamy-pink": "#F3DBE9",
-        "dreamy-dark": "#465375",
+        "navbar-bg": "#E4E4E4",
+        "main-white": "#FFFFFF",
+        "main-green": "#6DFF96",
+        "main-grey": "#D9D9D9",
+        "main-dark": "#AAAAAA",
       },
     },
   },
