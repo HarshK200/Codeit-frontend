@@ -6,14 +6,14 @@ export default function Navbar() {
 
   return (
     <nav>
-      <div className="px-96 py-3.5 flex justify-between items-center text-lg bg-navbar-bg text-white box-border">
-        <ul className="flex gap-4">
+      <div className="px-10 lg:px-96 md:px-40 sm:px-10 py-3 flex justify-between items-center text-lg bg-navbar-bg text-white box-border">
+        <ul className="flex gap-12">
           <li className="flex gap-2.5 justify-center items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
-              width={30}
-              height={30}
+              width={25}
+              height={25}
               className="fill-main-dark"
             >
               <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
@@ -56,12 +56,12 @@ export default function Navbar() {
             <span>{streak}</span>
           </li>
 
-          <li className="flex gap-5 justify-center items-center">
+          <li className="flex gap-4 justify-center items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
-              width={30}
-              height={30}
+              width={25}
+              height={25}
               className="fill-main-dark"
             >
               <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
