@@ -4,11 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        "navbar-bg": "#E4E4E4",
+        "navbar-bg": "#282828",
+        "navbar-boder": "#464646",
+        "main-body-bg": "#1A1A1A",
         "main-white": "#FFFFFF",
-        "main-green": "#6DFF96",
+        "easy-green": "#00B8A3",
         "main-grey": "#D9D9D9",
         "main-dark": "#AAAAAA",
+        "hover-blue": "#0A84FF",
+      },
+      padding: {
+        84: "22rem",
+      },
+      borderWidth: {
+        1: "1px",
       },
     },
   },

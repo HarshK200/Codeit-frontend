@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ProblemsTable from "../components/ProblemsTable/ProblemsTable";
+import Calendar from "react-calendar";
 
 export default function Problemset() {
   const [problems, setproblems] = useState([]);
@@ -17,9 +18,14 @@ export default function Problemset() {
   }, []);
 
   return (
-    <main className="flex flex-col justify-center pt-20 text-xl">
-      <h1>Problems</h1>
-      <ProblemsTable problems={problems} />
+    <main className="overflow-hidden">
+      <div className="w-screen h-screen flex flex-col pt-20 text-sm text-white bg-main-body-bg">
+        {/*calander with streak*/}
+        <Calendar />
+        <div id="problems-wrapper" className="flex flex-col lg:px-84">
+          <ProblemsTable problems={problems} />
+        </div>
+      </div>
     </main>
   );
 }
