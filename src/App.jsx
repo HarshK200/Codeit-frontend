@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
-import Problemset from "./pages/Problemset.1";
+import Problemset from "./pages/Problemset";
 import { Routes, Route } from "react-router-dom";
 import Problem from "./components/Problem/Problem";
 
