@@ -57,6 +57,8 @@ export default function Navbar() {
             <span>{streak}</span>
           </li>
 
+
+          {/* TODO LOGIN OR SIGNUP BUTTON IF USER NOT LOGGED IN */}
           <Link className="flex gap-3 justify-center items-center">
             {/*Profile image*/}
             <svg
