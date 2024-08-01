@@ -19,6 +19,9 @@ export default {
       borderWidth: {
         1: "1px",
       },
+      boxShadow: {
+        "signup-box": "0 4px 8px rgba(0, 0, 0, 0.1)",
+      },
     },
   },
   plugins: [],
