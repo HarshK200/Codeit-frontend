@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import ProblemsTable from "../components/ProblemsTable/ProblemsTable";
 import Calendar from "react-calendar";
 
+
 export default function Problemset() {
   const [problems, setproblems] = useState([]);
   const [calValue, setCalValue] = useState(new Date());
 
   useEffect(() => {
     async function fetchProblems () {
-      const res = await fetch("http://localhost:3000/problemset", {
+      const res = await fetch(import.meta.env.VITE_API_URL+"/problemset", {
         method: "GET",
       });
       const json = await res.json();
