@@ -40,6 +40,7 @@ export default function Signup() {
         import.meta.env.VITE_API_URL + "/signup",
         data,
       );
+      toast.success(response.data.message)
       navigate("/login");
     } catch (error) {
       console.log(error);
