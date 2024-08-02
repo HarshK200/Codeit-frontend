@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 export default function Signup() {
+  const {isLoggedIn} = useContext(LoggedInContext);
   const [data, setData] = useState({
     username: "",
     email: "",
@@ -15,28 +18,33 @@ export default function Signup() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (isLoggedIn) {
+      toast.info("Already logged in redirecting...");
+      setTimeout(() => {
+        navigate("/user");
+      }, 1000);
+      return;
+    }
+
     confirmpwd === data.password && data.password != ""
       ? setPasswordMatches(true)
       : setPasswordMatches(false);
   }, [data.password, confirmpwd]);
 
-  useEffect(() => {
-    //console.log(passwordMatches);
-  }, [passwordMatches]);
-
-  function handleSignup(e) {
+  async function handleSignup(e) {
     e.preventDefault();
-    // Now send the data to backend via
-    axios
-      .post(import.meta.env.VITE_API_URL + "/signup", data)
-      .then((response) => {
-        console.log(response);
-        navigate("/login")
-      })
-      .catch((error) => {
-        alert("Err: " + error.response.status)
-        console.log(error);
-      });
+
+    // Now sending the data to backend via axios
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URL + "/signup",
+        data,
+      );
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message)
+    }
   }
 
   return (

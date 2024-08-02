@@ -1,7 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 export default function Login() {
   const [data, setData] = useState({
@@ -10,6 +12,17 @@ export default function Login() {
     password: "",
   });
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.info("Already logged in redirecting...");
+      setTimeout(() => {
+        navigate("/user");
+      }, 1000);
+      return;
+    }
+  }, []);
 
   function handleLogin(e) {
     // handleSubmit
@@ -20,12 +33,14 @@ export default function Login() {
       .then((response) => {
         if (response.data?.token) {
           localStorage.setItem("auth_token", response.data?.token);
-          navigate("/");
+          setIsLoggedIn(true);
+          toast.success("Login Successful");
+          navigate("/user");
         }
       })
       .catch((e) => {
         console.log(e);
-        alert(e.response.data.message)
+        toast.error(e.response.data.message);
       });
   }
 
