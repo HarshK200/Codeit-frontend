@@ -18,7 +18,7 @@ export default function User() {
       return;
     }
 
-    const auth_token = localStorage.getItem("auth_token")
+    const auth_token = localStorage.getItem("auth_token");
 
     axios
       .get(import.meta.env.VITE_API_URL + "/user", {
@@ -28,13 +28,15 @@ export default function User() {
         // console.log(response);
         set_user_data(response?.data?.user);
       })
-      .catch((e) => {
-        console.log(e);
-        if (e.response.status == 401) {
-          toast.error(e.response.status + " redirecting to login page...");
-          navigate("/login");
-          return;
-        }
+      .catch((error) => {
+        setIsLoggedIn(false);
+        toast.error(
+          error.response.status +
+            " " +
+            error.response.data.message +
+            " redirecting to login page...",
+        );
+        navigate("/login");
       });
   }, []);
 

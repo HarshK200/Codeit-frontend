@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="bg-main-body-bg">
+    <main className="bg-main-body-bg text-main-white">
       <h1 className="flex items-center justify-center pt-10 text-4xl">
         Home Page
       </h1>

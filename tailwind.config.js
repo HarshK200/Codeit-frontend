@@ -12,6 +12,8 @@ export default {
         "main-grey": "#D9D9D9",
         "main-dark": "#AAAAAA",
         "hover-blue": "#0A84FF",
+        "code-bg": "#282828",
+        "example-text": "#A8A8A8",
       },
       padding: {
         84: "22rem",

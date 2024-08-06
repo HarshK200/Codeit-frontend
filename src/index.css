@@ -5,10 +5,6 @@
 @tailwind utilities;
 
 * {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-  font-variation-settings: "slnt" 0;
   color-scheme: light dark;
   box-sizing: border-box;
   padding: 0;

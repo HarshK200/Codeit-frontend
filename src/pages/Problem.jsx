@@ -4,40 +4,42 @@ import Split from "react-split";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+import axios from "axios";
+import Examples from "../components/Problem/Examples";
+import { toast } from "react-toastify";
 
-function Problem(props) {
+function Problem() {
   const { problemid } = useParams();
-  const [problem, setProblem] = useState({
-    id: "foo",
-    title: "test",
-    description: "",
-  });
-  const [code, setCode] = useState("//Write your code here\n() => {\n\n}");
+  const [problem, setProblem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [code, setCode] = useState();
   const navigate = useNavigate();
 
-  const onChange = useCallback((val, viewUpdate) => {
+  const handleCodeChange = useCallback((val) => {
     setCode(val);
   }, []);
 
   useEffect(() => {
     async function fetchProblem() {
-      const res = await fetch(
-        import.meta.env.VITE_API_URL + "/problemset/" + problemid,
-        {
-          method: "GET",
-        },
-      );
-
-      if (res.status == 404) {
+      try {
+        const res = await axios.get(
+          import.meta.env.VITE_API_URL + "/problemset/" + problemid,
+        );
+        setProblem(res.data.problem);
+        setCode(res.data.problem.StarterCode);
+      } catch (err) {
+        console.log(err);
         navigate("/404");
       }
-
-      const json = await res.json();
-      setProblem(json.problem);
     }
-
     fetchProblem();
   }, []);
+
+  useEffect(() => {
+    if (problem) {
+      setLoading(false);
+    }
+  }, [problem]);
 
   function isMalicious(codeToTest) {
     const patterns = [
@@ -61,59 +63,75 @@ function Problem(props) {
     return false;
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (isMalicious(code)) {
-      console.log("STOP YOU SUSY BASTARD!");
+      console.log("System level function/imports are not allowed");
       return;
     }
-    // TODO: SEND CODE TO BACKEND VIA /SUBMIT ROUTE
+
+    try {
+      const result = await axios.post(
+        import.meta.env.VITE_API_URL + "/problemset/" + problemid + "/submit",
+        { answer: code },
+        {
+          headers: {
+            authorization_token: "bearer " + localStorage.getItem("auth_token"),
+          },
+        },
+      );
+      toast.success("status: " + result.status + " " + result.data.message);
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.status + ": " + error.response.data.message);
+    }
   }
 
   return (
-    <Split className="split" minSize={0}>
+    <Split
+      className="split font-mono"
+      minSize={400}
+      sizes={[50, 50]}
+      gutterSize={3}
+    >
       <div id="split-0" className="h-screen">
         <div className="m-4 flex flex-col gap-0.5">
           <h1 className="text-2xl font-bold">
-            {/*problem.id}. {problem.title*/}
+            {!loading ? problem?.id : ""}. {!loading ? problem?.title : ""}
           </h1>
         </div>
 
         <div className="mx-4 flex flex-col gap-0.5">
           <p>Description:</p>
-          <p>{/*problem.description*/}</p>
+          <p>{!loading ? problem?.description : ""}</p>
         </div>
 
         <div className="mx-4 mt-6 flex flex-col gap-0.5">
-          <p className="font-bold">Examples:</p>
-          <div>
-            <span className="font-bold">Input: </span>
-            <span>nums =</span>
-            <ul></ul>
-          </div>
-          <div>
-            <span className="font-bold">Output:</span>
-          </div>
+          {!loading ? (
+            <Examples examples={problem?.examples} />
+          ) : (
+            <p>Loading</p>
+          )}
         </div>
       </div>
       <Split
         className="overflow-auto"
         direction="vertical"
         sizes={[60, 40]}
-        minSize={0}
+        minSize={10}
+        gutterSize={3}
       >
         {/* Code Mirror Div*/}
-        <div id="split-1">
+        <div id="split-1" className="bg-code-bg">
           <CodeMirror
-            value={code}
-            height="200px"
-            onChange={onChange}
+            value={!loading ? code : ""}
+            height="auto"
+            onChange={handleCodeChange}
             extensions={[javascript({ javascript: true })]}
             theme={vscodeDark}
           />
         </div>
 
         <div id="split-2">
-          horizontal
           <button
             type="button"
             className="flex flex-col"

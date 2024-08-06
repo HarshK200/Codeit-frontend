@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProblemsTable from "../components/ProblemsTable/ProblemsTable";
+import ProblemsTable from "../components/Problemset/ProblemsTable";
 import Calendar from "react-calendar";
 
 
