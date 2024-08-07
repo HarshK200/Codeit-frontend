@@ -72,13 +72,14 @@ function Problem() {
     try {
       const result = await axios.post(
         import.meta.env.VITE_API_URL + "/problemset/" + problemid + "/submit",
-        { answer: code },
+        { answer: code , language: "javascript"},
         {
           headers: {
             authorization_token: "bearer " + localStorage.getItem("auth_token"),
           },
         },
       );
+      console.log(result);
       toast.success("status: " + result.status + " " + result.data.message);
     } catch (error) {
       console.log(error)
