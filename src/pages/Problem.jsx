@@ -93,7 +93,7 @@ function Problem() {
       className="split font-mono"
       minSize={400}
       sizes={[50, 50]}
-      gutterSize={3}
+      gutterSize={5}
     >
       <div id="split-0" className="h-screen">
         <div className="m-4 flex flex-col gap-0.5">
@@ -120,7 +120,7 @@ function Problem() {
         direction="vertical"
         sizes={[60, 40]}
         minSize={10}
-        gutterSize={3}
+        gutterSize={5}
       >
         {/* Code Mirror Div*/}
         <div id="split-1" className="bg-code-bg">

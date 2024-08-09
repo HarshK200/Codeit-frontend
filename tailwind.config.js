@@ -15,6 +15,7 @@ export default {
         "code-bg": "#282828",
         "example-text": "#A8A8A8",
         "case-bg-code":"#3C3C3C",
+        "testcase-green": "#02B128",
       },
       padding: {
         84: "22rem",
