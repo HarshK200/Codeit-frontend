@@ -14,6 +14,7 @@ export default {
         "hover-blue": "#0A84FF",
         "code-bg": "#282828",
         "example-text": "#A8A8A8",
+        "case-bg-code":"#3C3C3C",
       },
       padding: {
         84: "22rem",

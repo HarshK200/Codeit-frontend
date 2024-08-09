@@ -7,6 +7,7 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import axios from "axios";
 import Examples from "../components/Problem/Examples";
 import { toast } from "react-toastify";
+import TestCasesAndResult from "../components/Problem/TestCasesAndResult";
 
 function Problem() {
   const { problemid } = useParams();
@@ -133,13 +134,7 @@ function Problem() {
         </div>
 
         <div id="split-2">
-          <button
-            type="button"
-            className="flex flex-col"
-            onClick={handleSubmit}
-          >
-            SUBMIT
-          </button>
+          <TestCasesAndResult testcases={problem?.testCases}/>
         </div>
       </Split>
     </Split>
