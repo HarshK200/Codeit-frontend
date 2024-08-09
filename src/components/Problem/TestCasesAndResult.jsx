@@ -6,14 +6,7 @@ import TestCase from "./TestCase";
 import TestResult from "./TestResult";
 
 export default function TestCasesAndResult({ testcases }) {
-  const [loading, setLoading] = useState(null);
   const [focusedTab, setFocusedTab] = useState("testcase");
-
-  useEffect(() => {
-    if (testcases) {
-      setLoading(false);
-    }
-  }, [testcases]);
 
   return (
     <div className="font-sans">
@@ -41,7 +34,7 @@ export default function TestCasesAndResult({ testcases }) {
           Test Result
         </button>
       </nav>
-      <main>{focusedTab === "testcase" ? <TestCase /> : <TestResult />}</main>
+      <main>{focusedTab === "testcase" ? <TestCase testcase={testcases}/> : <TestResult />}</main>
     </div>
   );
 }

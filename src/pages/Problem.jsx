@@ -133,7 +133,7 @@ function Problem() {
           />
         </div>
 
-        <div id="split-2">
+        <div id="split-2" className="bg-code-bg">
           <TestCasesAndResult testcases={problem?.testCases}/>
         </div>
       </Split>
