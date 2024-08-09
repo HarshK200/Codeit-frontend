@@ -55,16 +55,16 @@ function Case({ currentCase }) {
         ? Object.keys(currentCase).map((key) => {
             if (Array.isArray(currentCase[key])) {
               return (
-                <div className="my-4">
+                <div key={key} className="my-4">
                   <span className="text-xs text-gray-400">{key} =</span>
                   <div className="flex text-base bg-case-bg-code px-4 py-2 my-2 rounded-md">
                     <span>[</span>
                     <ul className="flex">
                       {currentCase[key].map((value, index) => {
                         return index < currentCase[key].length - 1 ? (
-                          <li>{value},</li>
+                          <li key={index}>{value},</li>
                         ) : (
-                          <li>{value}</li>
+                          <li key={index}>{value}</li>
                         );
                       })}
                     </ul>
@@ -74,7 +74,7 @@ function Case({ currentCase }) {
               );
             } else {
               return (
-                <div className="my-4">
+                <div className="my-4" key={key}>
                   <span className="text-xs text-gray-400">{key} =</span>
                   <div className="flex text-base bg-case-bg-code px-4 py-2 my-2 rounded-md">
                     {currentCase[key]}
