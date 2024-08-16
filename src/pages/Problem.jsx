@@ -15,6 +15,7 @@ function Problem() {
   const [loading, setLoading] = useState(true);
   const [code, setCode] = useState();
   const navigate = useNavigate();
+  const [submissionResult, setSubmissionResult] = useState(null);
 
   const handleCodeChange = useCallback((val) => {
     setCode(val);
@@ -73,17 +74,38 @@ function Problem() {
     try {
       const result = await axios.post(
         import.meta.env.VITE_API_URL + "/problemset/" + problemid + "/submit",
-        { answer: code , language: "javascript"},
+        { answer: code, language: "javascript" },
         {
           headers: {
             authorization_token: "bearer " + localStorage.getItem("auth_token"),
           },
         },
       );
-      console.log(result);
+      // console.log(result);
       toast.success("status: " + result.status + " " + result.data.message);
+
+      // TODO: setup short polling
+      const pollIntervalId = setInterval(async () => {
+        const response = await axios.post(
+          import.meta.env.VITE_SERVER_POLLING_URL,
+          {
+            submissionId: result.data.submissionId,
+          },
+          {
+            headers: {
+              authorization_token:
+                "bearer " + localStorage.getItem("auth_token"),
+            },
+          },
+        );
+        console.log(response.data);
+        if (response.data.submissionStat !== "PENDING") {
+          setSubmissionResult(response.data);
+          clearInterval(pollIntervalId);
+        }
+      }, 1000);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response.status + ": " + error.response.data.message);
     }
   }
@@ -131,10 +153,11 @@ function Problem() {
             extensions={[javascript({ javascript: true })]}
             theme={vscodeDark}
           />
+          <button onClick={handleSubmit}>SUBMIT</button>
         </div>
 
         <div id="split-2" className="bg-code-bg">
-          <TestCasesAndResult testcases={problem?.testCases}/>
+          <TestCasesAndResult testcases={problem?.testCases} submissionResult={submissionResult}/>
         </div>
       </Split>
     </Split>

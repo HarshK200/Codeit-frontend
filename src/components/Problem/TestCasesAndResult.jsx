@@ -5,7 +5,7 @@ import { faTerminal } from "@fortawesome/free-solid-svg-icons";
 import TestCase from "./TestCase";
 import TestResult from "./TestResult";
 
-export default function TestCasesAndResult({ testcases }) {
+export default function TestCasesAndResult({ testcases, submissionResult }) {
   const [focusedTab, setFocusedTab] = useState("testcase");
 
   return (
@@ -34,7 +34,7 @@ export default function TestCasesAndResult({ testcases }) {
           Test Result
         </button>
       </nav>
-      <main>{focusedTab === "testcase" ? <TestCase testcase={testcases}/> : <TestResult />}</main>
+      <main>{focusedTab === "testcase" ? <TestCase testcase={testcases}/> : <TestResult submissionResult={submissionResult}/>}</main>
     </div>
   );
 }

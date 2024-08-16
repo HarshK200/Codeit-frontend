@@ -53,6 +53,7 @@ function Case({ currentCase }) {
     <div>
       {!loading
         ? Object.keys(currentCase).map((key) => {
+            if (key.toLowerCase() === "output") return;
             if (Array.isArray(currentCase[key])) {
               return (
                 <div key={key} className="my-4">
