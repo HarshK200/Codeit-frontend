@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { LoggedInContext } from "../context/LoggedInContext";
+import Navbar from "../components/Navbar/Navbar";
 
 export default function User() {
   const [user_data, set_user_data] = useState({});
@@ -48,24 +49,27 @@ export default function User() {
   }
 
   return (
-    <main className="w-full h-full">
-      <div className="flex flex-col items-start gap-3 mt-32 ml-20 w-96 h-48 bg-navbar-boder rounded-md px-10 py-10">
-        <div className="flex gap-6">
-          <div>
-            <p>Username: </p>
-            <p>Email:</p>
-            <p>Role:</p>
+    <div className="h-screen flex flex-col">
+      <Navbar />
+      <main className="w-full h-full bg-body-bg">
+        <div className="flex flex-col items-start gap-3 mt-32 ml-20 w-96 h-48 bg-black rounded-md px-10 py-10">
+          <div className="flex gap-6">
+            <div>
+              <p>Username: </p>
+              <p>Email:</p>
+              <p>Role:</p>
+            </div>
+            <div>
+              <p>{user_data?.username}</p>
+              <p>{user_data?.email}</p>
+              <p>{user_data?.Role}</p>
+            </div>
           </div>
-          <div>
-            <p>{user_data?.username}</p>
-            <p>{user_data?.email}</p>
-            <p>{user_data?.Role}</p>
-          </div>
+          <button className="my-3" onClick={handleLogOut}>
+            Log-Out
+          </button>
         </div>
-        <button className="my-3" onClick={handleLogOut}>
-          Log-Out
-        </button>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

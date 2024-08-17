@@ -8,6 +8,7 @@ import axios from "axios";
 import Examples from "../components/Problem/Examples";
 import { toast } from "react-toastify";
 import TestCasesAndResult from "../components/Problem/TestCasesAndResult";
+import Navbar from "../components/Navbar/Navbar";
 
 function Problem() {
   const { problemid } = useParams();
@@ -111,56 +112,63 @@ function Problem() {
   }
 
   return (
-    <Split
-      className="split font-mono"
-      minSize={400}
-      sizes={[50, 50]}
-      gutterSize={5}
-    >
-      <div id="split-0" className="h-screen">
-        <div className="m-4 flex flex-col gap-0.5">
-          <h1 className="text-2xl font-bold">
-            {!loading ? problem?.id : ""}. {!loading ? problem?.title : ""}
-          </h1>
-        </div>
-
-        <div className="mx-4 flex flex-col gap-0.5">
-          <p>Description:</p>
-          <p>{!loading ? problem?.description : ""}</p>
-        </div>
-
-        <div className="mx-4 mt-6 flex flex-col gap-0.5">
-          {!loading ? (
-            <Examples examples={problem?.examples} />
-          ) : (
-            <p>Loading</p>
-          )}
-        </div>
-      </div>
+    <div className="h-screen flex flex-col">
+      <Navbar />
       <Split
-        className="overflow-auto"
-        direction="vertical"
-        sizes={[60, 40]}
-        minSize={10}
+        className="split font-mono"
+        minSize={400}
+        sizes={[50, 50]}
         gutterSize={5}
       >
-        {/* Code Mirror Div*/}
-        <div id="split-1" className="bg-code-bg">
-          <CodeMirror
-            value={!loading ? code : ""}
-            height="auto"
-            onChange={handleCodeChange}
-            extensions={[javascript({ javascript: true })]}
-            theme={vscodeDark}
-          />
-          <button onClick={handleSubmit}>SUBMIT</button>
-        </div>
+        <div id="split-0" className="h-screen">
+          <div className="m-4 flex flex-col gap-0.5">
+            <h1 className="text-2xl font-bold">
+              {!loading ? problem?.id : ""}. {!loading ? problem?.title : ""}
+            </h1>
+          </div>
 
-        <div id="split-2" className="bg-code-bg">
-          <TestCasesAndResult testcases={problem?.testCases} submissionResult={submissionResult}/>
+          <div className="mx-4 flex flex-col gap-0.5">
+            <p>Description:</p>
+            <p>{!loading ? problem?.description : ""}</p>
+          </div>
+
+          <div className="mx-4 mt-6 flex flex-col gap-0.5">
+            {!loading ? (
+              <Examples examples={problem?.examples} />
+            ) : (
+              <p>Loading</p>
+            )}
+          </div>
         </div>
+        <Split
+          className="overflow-auto"
+          direction="vertical"
+          sizes={[60, 40]}
+          minSize={10}
+          gutterSize={5}
+        >
+          {/* Code Mirror Div*/}
+          <div id="split-1" className="bg-code-bg">
+            <CodeMirror
+              value={!loading ? code : ""}
+              height="auto"
+              onChange={handleCodeChange}
+              extensions={[javascript({ javascript: true })]}
+              theme={vscodeDark}
+              indentWithTab={true}
+            />
+            <button onClick={handleSubmit}>SUBMIT</button>
+          </div>
+
+          <div id="split-2" className="bg-problem-page-bg">
+            <TestCasesAndResult
+              testcases={problem?.testCases}
+              submissionResult={submissionResult}
+            />
+          </div>
+        </Split>
       </Split>
-    </Split>
+    </div>
   );
 }
 

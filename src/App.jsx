@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
 import Problemset from "./pages/Problemset";
 import { Routes, Route } from "react-router-dom";
@@ -11,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { LoggedInContext } from "./context/LoggedInContext.jsx";
+import Decks from "./pages/Decks.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -20,7 +20,6 @@ function App() {
   return (
     <>
       <LoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/problemset" element={<Problemset />} />
@@ -28,6 +27,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<User />} />
+          <Route path="/decks" element={<Decks />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer
