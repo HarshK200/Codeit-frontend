@@ -25,6 +25,7 @@ export default {
         "catppuccin-green": "#a6e3a1",
         "catppuccin-yellow": "#f9e2af",
         "catppuccin-red": "#f38ba8",
+        "err-bg": "#362B2A",
       },
       padding: {
         84: "22rem",

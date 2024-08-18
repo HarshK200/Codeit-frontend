@@ -85,7 +85,7 @@ function Problem() {
       // console.log(result);
       toast.success("status: " + result.status + " " + result.data.message);
 
-      // TODO: setup short polling
+      // Doing short polling i.e. pinging server to get code execution result when finished
       const pollIntervalId = setInterval(async () => {
         const response = await axios.post(
           import.meta.env.VITE_SERVER_POLLING_URL,
@@ -141,7 +141,7 @@ function Problem() {
           </div>
         </div>
         <Split
-          className="overflow-auto"
+          className="overflow-hidden"
           direction="vertical"
           sizes={[60, 40]}
           minSize={10}

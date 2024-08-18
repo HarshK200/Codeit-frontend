@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 export default function ProblemsTable({ problems }) {
   return (
     <div className="flex flex-col">
-      <div className="flex pb-2 mb-2 border-b-1 border-b-navbar-boder text-main-text-color lg:gap-20 md:gap-4">
+      <div className="flex pb-1.5 mb-3 border-b-1 border-b-navbar-boder text-main-text-color lg:gap-20 md:gap-4">
         <span className="w-20 px-10">Id</span>
         <span className="w-80">Title</span>
         <span className="w-40">Difficulty</span>
         <span>Acceptance</span>
       </div>
-      <div>
+      <div className="flex flex-col gap-2 bg-secondary-body-bg rounded-sm py-2">
         {problems.map((x) => {
           return <ProblemItem key={x.id} problem={x} />;
         })}
