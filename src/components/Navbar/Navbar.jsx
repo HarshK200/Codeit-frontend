@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <nav>
-      <div className="px-4 py-3 lg:px-96 md:px-30 sm:px-10 flex justify-between items-center text-base bg-navbar-bg h-12">
+      <div className="py-3 lg:px-44 md:px-24 sm:px-10 flex justify-between items-center text-base bg-navbar-bg h-12">
         <ul className="flex gap-2 md:gap-8 lg:gap-6 justify-center items-center">
           <li className="flex justify-center items-center mx-2">
             {/*Site Logo*/}
@@ -53,6 +53,9 @@ export default function Navbar() {
           </li>
           <li className="text-main-text-color">
             <Link to="/decks">Decks</Link>
+          </li>
+          <li className="text-main-text-color">
+            <Link to="/createproblem">Create Problem</Link>
           </li>
         </ul>
 

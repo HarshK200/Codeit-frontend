@@ -33,7 +33,7 @@ function ProblemItem({ problem }) {
       <span className="w-80">
         <Link
           to={"/problemset/" + problem.id}
-          className="hover:text-hover-blue"
+          className="hover:text-catppuccin-red"
         >
           {problem.title}
         </Link>

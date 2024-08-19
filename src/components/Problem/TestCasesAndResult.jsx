@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import { faTerminal } from "@fortawesome/free-solid-svg-icons";
 import TestCase from "./TestCase";
 import TestResult from "./TestResult";
 
-export default function TestCasesAndResult({ testcases, submissionResult }) {
-  const [focusedTab, setFocusedTab] = useState("testcase");
+export default function TestCasesAndResult({ testcases, submissionResult, focusedTab, setFocusedTab}) {
 
   return (
     <div className="font-sans">

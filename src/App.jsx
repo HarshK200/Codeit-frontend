@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { LoggedInContext } from "./context/LoggedInContext.jsx";
 import Decks from "./pages/Decks.jsx";
+import CreateProblem from "./pages/CreateProblem.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -24,10 +25,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/problemset" element={<Problemset />} />
           <Route path="/problemset/:problemid" element={<Problem />} />
+          <Route path="/createproblem" element={<CreateProblem />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<User />} />
-          <Route path="/decks" element={<Decks />}/>
+          <Route path="/decks" element={<Decks />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer

@@ -71,11 +71,11 @@ function TestCasesResult({ submissionResult }) {
           );
         })}
       </nav>
-      <main className="flex flex-col">
+      <main className="flex flex-col mt-4">
         {Object.keys(testCases[currentTestcase]).map((key) => {
           if (Array.isArray(testCases[currentTestcase][key])) {
             return (
-              <div key={key} className="my-4">
+              <div key={key}>
                 <span className="text-xs text-gray-400">{key} =</span>
                 <div className="flex text-base bg-case-bg-code px-4 py-2 my-2 rounded-md">
                   <span>[</span>
@@ -95,7 +95,7 @@ function TestCasesResult({ submissionResult }) {
             );
           } else {
             return (
-              <div className="my-4" key={key}>
+              <div key={key}>
                 <span className="text-xs text-gray-400">{key} =</span>
                 <div className="flex text-base bg-case-bg-code px-4 py-2 my-2 rounded-md">
                   {testCases[currentTestcase][key].toString()}
