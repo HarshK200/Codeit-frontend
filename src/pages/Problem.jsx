@@ -3,16 +3,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import Split from "react-split";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
+import { cpp } from "@codemirror/lang-cpp";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import axios from "axios";
 import Examples from "@/components/Problem/Examples";
 import { toast } from "react-toastify";
 import TestCasesAndResult from "@/components/Problem/TestCasesAndResult";
-import Navbar from "@/components/Navbar/Navbar";
 import Dropdown from "@/ui/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ProblemPageNav from "@/components/Navbar/ProblemPageNav";
+import { getExtension } from "./CreateProblem";
 
 function Problem() {
   const { problemid } = useParams();
@@ -49,7 +50,6 @@ function Problem() {
           import.meta.env.VITE_API_URL + "/problemset/" + problemid,
         );
         setProblem(res.data.problem);
-        setCode(res.data.problem.StarterCode);
         setLanguage(res.data.problem.langSupport[0]);
       } catch (err) {
         console.log(err);
@@ -58,6 +58,12 @@ function Problem() {
     }
     fetchProblem();
   }, []);
+
+  useEffect(() => {
+    if (problem && language !== "loading") {
+      setCode(problem.StarterCode[language]);
+    }
+  }, [problem, language]);
 
   useEffect(() => {
     if (problem) {
@@ -189,7 +195,7 @@ function Problem() {
               value={!loading ? code : ""}
               height="auto"
               onChange={handleCodeChange}
-              extensions={[javascript({ javascript: true })]}
+              extensions={getExtension(language)}
               theme={vscodeDark}
               indentWithTab={true}
             />

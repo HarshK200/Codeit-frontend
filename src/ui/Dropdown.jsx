@@ -8,6 +8,7 @@ export default function Dropdown({ options, language, setLanguage }) {
     <div className="relative">
       <button
         className={`flex justify-center items-center gap-2 text-sm ${isOpen ? "text-gray-200" : "text-white"}`}
+        type="button"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
