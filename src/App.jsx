@@ -13,6 +13,7 @@ import { LoggedInContext } from "./context/LoggedInContext.jsx";
 import Decks from "./pages/Decks.jsx";
 import CreateProblem from "./pages/CreateProblem.jsx";
 
+// componenet
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("auth_token") ? true : false,

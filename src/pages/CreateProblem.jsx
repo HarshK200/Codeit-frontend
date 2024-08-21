@@ -13,7 +13,6 @@ function getExtension(langauge) {
   switch (langauge) {
     case "javascript":
       return javascript();
-      break;
     case "cpp":
       return cpp();
     case "jason":
@@ -33,7 +32,18 @@ export default function CreateProblem() {
     AcceptanceRate: "",
     StarterCode: { javascript: "", cpp: "" },
     langSupport: [],
-    problemEvalCode: { javascript: "", cpp: "" },
+    problemEvalCode: {
+      javascript:
+        "//DO NOT CHANGE THE NAME OF THE 'EvalUserCode'\n//function you can give the startcode function any name though\n" +
+        "function EvalUserCode() {\n" +
+        "  //call the startercode function here and pass it testcases\n" +
+        "  //testcases <- the test cases were saved in this variable\n}",
+      cpp:
+        "//DO NOT CHANGE THE NAME OF THE 'EvalUserCode'\n//function you can give the startcode function any name though\n" +
+        "std::vector<int> EvalUserCode(std::vector<int> testcases) {\n" +
+        "  //call the startercode function here and pass it testcases\n" +
+        "  //testcases <- the test cases were saved in this variable\n}",
+    },
   });
   const [languageStarterCode, setLanguageStarterCode] =
     useState("Select a language");
