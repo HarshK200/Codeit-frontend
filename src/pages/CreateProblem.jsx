@@ -57,6 +57,21 @@ export default function CreateProblem() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    function stringToJsonStr(str) {
+      // does some string replacing to make the string valid and json parsable
+      let validJsonString = str.replace(/(\w+):/g, '"$1":');
+      validJsonString = validJsonString.replace(/,(\s*[}\]])/g, "$1");
+      return validJsonString;
+    }
+
+    try {
+      JSON.parse(stringToJsonStr(problem.testCases));
+      JSON.parse(stringToJsonStr(problem.examples));
+    } catch (e) {
+      toast.error("Invalid JSON please check the examples and testcases");
+      return;
+    }
+
     if (problem.langSupport.length === 0) {
       toast.error(
         "Please select at least one language and provide it's starter and eval code",
@@ -83,7 +98,10 @@ export default function CreateProblem() {
       <main className="flex justify-center py-10">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex justify-center items-center font-bold underline">
-            <a href="https://stellar-deer-f9e.notion.site/Creating-a-problem-on-Codeit-c1e12a959fb9400c9e6e952105c70631" target="_blank">
+            <a
+              href="https://stellar-deer-f9e.notion.site/Creating-a-problem-on-Codeit-c1e12a959fb9400c9e6e952105c70631"
+              target="_blank"
+            >
               Docs on how to create a problem
             </a>
           </div>
