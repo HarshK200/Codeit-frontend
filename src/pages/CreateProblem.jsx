@@ -82,6 +82,11 @@ export default function CreateProblem() {
       <Navbar />
       <main className="flex justify-center py-10">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex justify-center items-center font-bold underline">
+            <a href="https://stellar-deer-f9e.notion.site/Creating-a-problem-on-Codeit-c1e12a959fb9400c9e6e952105c70631" target="_blank">
+              Docs on how to create a problem
+            </a>
+          </div>
           <input
             required={true}
             type="text"
