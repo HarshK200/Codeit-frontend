@@ -95,8 +95,8 @@ function Problem() {
           },
         },
       );
-      // console.log(result);
-      toast.success("status: " + result.status + " " + result.data.message);
+      console.log(result);
+      // toast.success("status: " + result.status + " " + result.data.message);
 
       // Doing short polling i.e. pinging server to get code execution result when finished
       const pollIntervalId = setInterval(async () => {
@@ -119,6 +119,7 @@ function Problem() {
           setSubmissionResult(response.data);
           setSubmissionLoading(false);
           setFocusedTab("testresult");
+          toast.info("Code Execution finished")
           clearInterval(pollIntervalId);
         }
       }, 1000);

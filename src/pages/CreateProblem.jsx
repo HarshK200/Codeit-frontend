@@ -4,18 +4,16 @@ import axios from "axios";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
-import { cpp } from "@codemirror/lang-cpp";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import Dropdown from "@/ui/Dropdown";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function getExtension(langauge) {
   switch (langauge) {
     case "javascript":
       return javascript();
-    case "cpp":
-      return cpp();
-    case "jason":
+    case "json":
       return json();
 
     default:
@@ -23,6 +21,7 @@ function getExtension(langauge) {
   }
 }
 export default function CreateProblem() {
+  const navigate = useNavigate();
   const [problem, setProblem] = useState({
     title: "",
     description: "",
@@ -30,19 +29,26 @@ export default function CreateProblem() {
     testCases: "",
     difficulty: "",
     AcceptanceRate: "",
-    StarterCode: { javascript: "", cpp: "" },
+    StarterCode: {
+      javascript:
+        "//This function can be called anything\n" +
+        "//just when calling it in the EvalUserCode() function use the same name\n" +
+        "function solution() {\n" +
+        "// user your code goes here\n" +
+        "}",
+    },
     langSupport: [],
     problemEvalCode: {
       javascript:
+        "//==================================================================================\n" +
+        "//PLEASE TEST THE EVAL CODE LOCALLY BEFORE PUTTING CREATING A PROBLEM\n//since not doing so might result in a Malformed problem\n" +
+        "//==================================================================================\n" +
+        "//RETURN an object that has the user output corressponding to each testcase\n" +
+        "//==================================================================================\n\n" +
         "//DO NOT CHANGE THE NAME OF THE 'EvalUserCode'\n//function you can give the startcode function any name though\n" +
-        "function EvalUserCode() {\n" +
-        "  //call the startercode function here and pass it testcases\n" +
-        "  //testcases <- the test cases were saved in this variable\n}",
-      cpp:
-        "//DO NOT CHANGE THE NAME OF THE 'EvalUserCode'\n//function you can give the startcode function any name though\n" +
-        "std::vector<int> EvalUserCode(std::vector<int> testcases) {\n" +
-        "  //call the startercode function here and pass it testcases\n" +
-        "  //testcases <- the test cases were saved in this variable\n}",
+        "function EvalUserCode(testcases) {\n" +
+        "  //call the startercode function here and pass it each testcase\n" +
+        "  //testcases <- the testcases you provided are being passed to this func. as testcases\n}",
     },
   });
   const [languageStarterCode, setLanguageStarterCode] =
@@ -57,12 +63,18 @@ export default function CreateProblem() {
       );
       return;
     }
-    console.log("submitted", problem);
-    const result = await axios.post(
-      import.meta.env.VITE_API_URL + "/createproblem",
-      problem,
-    );
-    console.log(result);
+    try {
+      const result = await axios.post(
+        import.meta.env.VITE_API_URL + "/createproblem",
+        problem,
+      );
+      toast.success(result.status + " Problem created successsfully");
+      navigate("/problemset");
+    } catch (e) {
+      toast.error(
+        "Some error happened during creating problem. please check console",
+      );
+    }
   }
 
   return (
@@ -239,7 +251,7 @@ function SelectDifficulty({ problem, setProblem }) {
 
 function SelectLanguage({ problem, setProblem }) {
   const langSupported = problem.langSupport;
-  const langSupportOptions = ["javascript", "cpp"];
+  const langSupportOptions = ["javascript"];
   return (
     <div>
       <span>Supported languages:</span>
