@@ -114,6 +114,8 @@ function Problem() {
         );
         // console.log(response.data);
         if (response.data.submissionStat !== "PENDING") {
+          // ================================= Execution Result from backend =====================================
+          console.log(response.data);
           setSubmissionResult(response.data);
           setSubmissionLoading(false);
           setFocusedTab("testresult");
@@ -202,7 +204,7 @@ function Problem() {
             </div>
           </div>
 
-          <div id="split-2" className="bg-problem-page-bg z-40">
+          <div id="split-2" className="bg-problem-page-bg z-40 overflow-y-scroll">
             <TestCasesAndResult
               testcases={problem?.testCases}
               submissionResult={submissionResult}

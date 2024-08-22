@@ -21,10 +21,23 @@ export default function TestResult({ submissionResult }) {
       "stderr": "PENDING"
   }*/
 
+  // in case the problem is malformed
+  if (JSON.parse(submissionResult.testCasesResult).execution_err) {
+    return (
+      <div className="text-sm mx-5 my-4">
+        <div className="flex flex-col w-full gap-2">
+          <div className="bg-err-bg text-red-400 flex px-4 py-2 rounded-md whitespace-pre-wrap">
+            {JSON.parse(submissionResult.testCasesResult).execution_err}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="text-sm mx-5 my-4">
       {!loading ? (
-        <div className="flex">
+        <div>
           {submissionResult.stderr !== "" ? (
             <ExecutionErr submissionResult={submissionResult} />
           ) : (
@@ -50,6 +63,8 @@ function ExecutionErr({ submissionResult }) {
     </div>
   );
 }
+
+function MalformedErr({ submissionResult }) {}
 
 function TestCasesResult({ submissionResult }) {
   const testCases = JSON.parse(submissionResult.testCasesResult);

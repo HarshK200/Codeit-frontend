@@ -238,6 +238,7 @@ function SelectDifficulty({ problem, setProblem }) {
 }
 
 function SelectLanguage({ problem, setProblem }) {
+  const langSupported = problem.langSupport;
   const langSupportOptions = ["javascript", "cpp"];
   return (
     <div>
@@ -251,21 +252,11 @@ function SelectLanguage({ problem, setProblem }) {
               placeholder="langSupport"
               value={lang}
               onChange={(e) => {
-                const langSupported = problem.langSupport;
-                if (
-                  e.target.checked &&
-                  langSupported.findIndex((ele) => {
-                    return ele === e.target.value;
-                  }) == -1
-                ) {
+                if (e.target.checked) {
                   langSupported.push(e.target.value);
-                } else if (
-                  !e.target.checked &&
-                  langSupported.findIndex((ele) => {
-                    return ele === e.target.value;
-                  }) != -1
-                ) {
-                  langSupported.pop(e.target.value);
+                } else if (!e.target.checked) {
+                  const idx = langSupported.findIndex((ele) => ele === lang);
+                  langSupported.splice(idx, 1);
                 }
                 setProblem({ ...problem, langSupport: langSupported });
               }}

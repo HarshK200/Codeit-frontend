@@ -7,7 +7,7 @@ import TestResult from "./TestResult";
 export default function TestCasesAndResult({ testcases, submissionResult, focusedTab, setFocusedTab}) {
 
   return (
-    <div className="font-sans">
+    <div className="font-sans flex flex-col">
       <nav className="bg-case-bg-code px-3.5 py-1.5 text-sm flex items-center gap-2 rounded-t-lg">
         <button
           className={`flex justify-center items-center gap-2 py-0.5 ${focusedTab === "testcase" ? "opacity-100" : "opacity-50"}`}
