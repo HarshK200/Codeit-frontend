@@ -2,8 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Split from "react-split";
 import CodeMirror from "@uiw/react-codemirror";
-import { javascript } from "@codemirror/lang-javascript";
-import { cpp } from "@codemirror/lang-cpp";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import axios from "axios";
 import Examples from "@/components/Problem/Examples";
@@ -114,7 +112,7 @@ function Problem() {
             },
           },
         );
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.submissionStat !== "PENDING") {
           setSubmissionResult(response.data);
           setSubmissionLoading(false);
@@ -123,6 +121,7 @@ function Problem() {
         }
       }, 1000);
     } catch (error) {
+      setSubmissionLoading(false);
       console.log(error);
       toast.error(error.response.status + ": " + error.response.data.message);
     }
@@ -135,7 +134,7 @@ function Problem() {
         isSubmissionLoading={submissionLoading}
       />
       <Split
-        className="split font-mono"
+        className="split font-mono overflow-hidden"
         minSize={400}
         sizes={[50, 50]}
         gutterSize={5}
@@ -175,11 +174,11 @@ function Problem() {
           className="overflow-hidden"
           direction="vertical"
           sizes={[60, 40]}
-          minSize={10}
+          minSize={30}
           gutterSize={5}
         >
           {/* Code Mirror Div*/}
-          <div id="split-1" className="bg-code-bg">
+          <div id="split-1" className="bg-code-bg flex flex-col">
             <nav className="bg-case-bg-code px-3.5 py-1.5 text-sm flex items-center gap-2 rounded-t-lg">
               {!loading ? (
                 <Dropdown
@@ -191,14 +190,16 @@ function Problem() {
                 "loading"
               )}
             </nav>
-            <CodeMirror
-              value={!loading ? code : ""}
-              height="auto"
-              onChange={handleCodeChange}
-              extensions={getExtension(language)}
-              theme={vscodeDark}
-              indentWithTab={true}
-            />
+            <div className="flex flex-col grow overflow-y-scroll">
+              <CodeMirror
+                value={!loading ? code : ""}
+                className="grow"
+                onChange={handleCodeChange}
+                extensions={getExtension(language)}
+                theme={vscodeDark}
+                indentWithTab={true}
+              />
+            </div>
           </div>
 
           <div id="split-2" className="bg-problem-page-bg z-40">

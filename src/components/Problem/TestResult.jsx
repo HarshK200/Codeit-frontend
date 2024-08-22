@@ -6,7 +6,6 @@ export default function TestResult({ submissionResult }) {
   useEffect(() => {
     if (submissionResult) {
       setLoading(false);
-      // console.log(JSON.parse(submissionResult.testCasesResult));
     }
   }, [submissionResult]);
 
@@ -27,7 +26,7 @@ export default function TestResult({ submissionResult }) {
       {!loading ? (
         <div className="flex">
           {submissionResult.stderr !== "" ? (
-            <RuntimeErr submissionResult={submissionResult} />
+            <ExecutionErr submissionResult={submissionResult} />
           ) : (
             <TestCasesResult submissionResult={submissionResult} />
           )}
@@ -39,10 +38,12 @@ export default function TestResult({ submissionResult }) {
   );
 }
 
-function RuntimeErr({ submissionResult }) {
+function ExecutionErr({ submissionResult }) {
   return (
     <div className="flex flex-col w-full gap-2">
-      <h1 className="text-red-400 font-bold text-xl">Runtime Error</h1>
+      <h1 className="text-red-400 font-bold text-xl">
+        {submissionResult.ExecutionStat}
+      </h1>
       <div className="bg-err-bg text-red-400 flex px-4 py-2 rounded-md whitespace-pre-wrap">
         {submissionResult.stderr}
       </div>
@@ -56,6 +57,11 @@ function TestCasesResult({ submissionResult }) {
 
   return (
     <div className="flex flex-col">
+      <h1
+        className={`${submissionResult.ExecutionStat === "Accepted" ? "text-catppuccin-green" : "text-red-400"} font-bold text-xl pb-4`}
+      >
+        {submissionResult.ExecutionStat}
+      </h1>
       <nav className="flex gap-3">
         {Object.keys(testCases).map((key) => {
           return (
@@ -104,6 +110,14 @@ function TestCasesResult({ submissionResult }) {
             );
           }
         })}
+        {submissionResult.stdout !== "" ? (
+          <div>
+            <span className="text-xs text-gray-400">stdout =</span>
+            <div className="flex text-base bg-case-bg-code px-4 py-2 my-2 rounded-md">
+              {submissionResult.stdout}
+            </div>
+          </div>
+        ) : null}
       </main>
     </div>
   );
