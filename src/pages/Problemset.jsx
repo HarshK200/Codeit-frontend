@@ -15,8 +15,11 @@ export default function Problemset() {
   useEffect(() => {
     async function fetchProblems() {
       const res = await axios.get(import.meta.env.VITE_API_URL + "/problemset");
-      const json = await res.data
-      console.log("axios got: ", res.data)
+      const json = await res.data;
+      console.log(
+        "axios get url: " + import.meta.env.VITE_API_URL + "/problemset",
+      );
+      console.log("axios got: ", res.data);
       setproblems(json.problems);
     }
 
