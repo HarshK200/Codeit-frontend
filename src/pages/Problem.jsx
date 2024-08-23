@@ -86,15 +86,22 @@ function Problem() {
 
     try {
       setSubmissionLoading(true);
-      const result = await axios.post(
-        import.meta.env.VITE_API_URL + "/problemset/" + problemid + "/submit",
-        { answer: code, language: language },
-        {
-          headers: {
-            authorization_token: "bearer " + localStorage.getItem("auth_token"),
+      try {
+        const result = await axios.post(
+          import.meta.env.VITE_API_URL + "/problemset/" + problemid + "/submit",
+          { answer: code, language: language },
+          {
+            headers: {
+              authorization_token:
+                "bearer " + localStorage.getItem("auth_token"),
+            },
           },
-        },
-      );
+        );
+      } catch (e) {
+        toast.error("login please");
+        navigate("/signup");
+        return;
+      }
       // console.log(result);
       // toast.success("status: " + result.status + " " + result.data.message);
 
@@ -119,7 +126,7 @@ function Problem() {
           setSubmissionResult(response.data);
           setSubmissionLoading(false);
           setFocusedTab("testresult");
-          toast.info("Code Execution finished")
+          toast.info("Code Execution finished");
           clearInterval(pollIntervalId);
         }
       }, 2000);
@@ -205,7 +212,10 @@ function Problem() {
             </div>
           </div>
 
-          <div id="split-2" className="bg-problem-page-bg z-40 overflow-y-scroll">
+          <div
+            id="split-2"
+            className="bg-problem-page-bg z-40 overflow-y-scroll"
+          >
             <TestCasesAndResult
               testcases={problem?.testCases}
               submissionResult={submissionResult}
