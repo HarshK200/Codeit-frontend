@@ -5,6 +5,7 @@ import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 import "react-day-picker/style.css";
+import axios from "axios";
 
 export default function Problemset() {
   const [problems, setproblems] = useState([]);
@@ -13,10 +14,8 @@ export default function Problemset() {
 
   useEffect(() => {
     async function fetchProblems() {
-      const res = await fetch(import.meta.env.VITE_API_URL + "/problemset", {
-        method: "GET",
-      });
-      const json = await res.json();
+      const res = await axios.get(import.meta.env.VITE_API_URL + "/problemset");
+      const json = await res.data
       setproblems(json.problems);
     }
 
