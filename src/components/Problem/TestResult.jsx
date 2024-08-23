@@ -24,7 +24,7 @@ export default function TestResult({ submissionResult }) {
   // in case the problem is malformed
   if (!loading) {
     if (JSON.parse(submissionResult.testCasesResult).execution_err) {
-      console.log(TestCasesResult)
+      // console.log(TestCasesResult)
       return (
         <div className="text-sm mx-5 my-4">
           <div className="flex flex-col w-full gap-2">

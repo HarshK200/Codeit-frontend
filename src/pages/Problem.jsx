@@ -95,7 +95,7 @@ function Problem() {
           },
         },
       );
-      console.log(result);
+      // console.log(result);
       // toast.success("status: " + result.status + " " + result.data.message);
 
       // Doing short polling i.e. pinging server to get code execution result when finished
@@ -115,14 +115,14 @@ function Problem() {
         // console.log(response.data);
         if (response.data.submissionStat !== "PENDING") {
           // ================================= Execution Result from backend =====================================
-          console.log(response.data);
+          // console.log(response.data);
           setSubmissionResult(response.data);
           setSubmissionLoading(false);
           setFocusedTab("testresult");
           toast.info("Code Execution finished")
           clearInterval(pollIntervalId);
         }
-      }, 1000);
+      }, 2000);
     } catch (error) {
       setSubmissionLoading(false);
       console.log(error);
